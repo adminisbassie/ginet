@@ -1,0 +1,55 @@
+<app-breadcrumb [path]="routes.Messages_EDIT"></app-breadcrumb>
+
+<mat-card class="card">
+  <mat-card-title>
+    <h4 class="h4">Edit Messages</h4>
+  </mat-card-title>
+
+  <mat-card-content [formGroup]="form">
+    <div class="input-wrapper">
+      <p class="input-title">Body</p>
+      <mat-form-field appearance="legacy" class="input-field">
+        <textarea matInput formControlName="body" placeholder="Body"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="input-wrapper">
+      <p class="input-title">From</p>
+      <div class="input-field">
+        <ng-select
+          [items]="users"
+          formControlName="from"
+          [multiple]="false"
+          (search)="getUsers($event.term)"
+          (close)="getUsers('')"
+          appendTo="body"
+          bindLabel="label"
+          bindValue="id"
+          placeholder="Please select..."
+        >
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="input-wrapper">
+      <p class="input-title">To</p>
+      <div class="input-field">
+        <ng-select
+          [items]="users"
+          formControlName="to"
+          [multiple]="false"
+          (search)="getUsers($event.term)"
+          (close)="getUsers('')"
+          appendTo="body"
+          bindLabel="label"
+          bindValue="id"
+          placeholder="Please select..."
+        >
+        </ng-select>
+      </div>
+    </div>
+
+    <button (click)="onSave()" mat-flat-button color="success">Save</button>
+    <button (click)="onCancel()" mat-flat-button color="default">Cancel</button>
+  </mat-card-content>
+</mat-card>

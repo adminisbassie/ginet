@@ -1,0 +1,143 @@
+<app-breadcrumb [path]="routes.Posts"></app-breadcrumb>
+
+<div class="filter-form">
+  <button mat-flat-button color="success" [routerLink]="routes.Posts_CREATE">
+    New
+  </button>
+  <button
+    mat-flat-button
+    color="success"
+    class="filter-button"
+    (click)="addFilter()"
+  >
+    Add filter
+  </button>
+
+  <mat-card class="card" *ngIf="showFilters">
+    <app-filter
+      [filters]="filters"
+      [config]="config"
+      (clearFilterConfirmed)="clearFilters()"
+      (deleteFilterConfirmed)="delFilter()"
+      (submitConfirmed)="submitHandler($event)"
+    >
+    </app-filter>
+  </mat-card>
+</div>
+
+<mat-card class="card">
+  <mat-card-content class="card-content">
+    <div class="table-title-wrapper">
+      <p class="table-title">Posts</p>
+    </div>
+
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="dataSource" matSort class="table">
+        <!-- Title Column -->
+
+        <ng-container matColumnDef="title">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="table-header"
+            mat-sort-header
+          >
+            Title
+          </th>
+          <td mat-cell *matCellDef="let row" class="table-body">
+            {{ row.title }}
+          </td>
+        </ng-container>
+
+        <!-- Content Column -->
+
+        <ng-container matColumnDef="content">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="table-header"
+            mat-sort-header
+          >
+            Content
+          </th>
+          <td mat-cell *matCellDef="let row" class="table-body">
+            {{ row.content }}
+          </td>
+        </ng-container>
+
+        <!-- Images Column -->
+
+        <ng-container matColumnDef="images">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="table-header"
+            mat-sort-header
+          >
+            Images
+          </th>
+          <td mat-cell *matCellDef="let row" class="table-body">
+            <img
+              *ngIf="row.images.length"
+              [src]="dataFormatterService.oneImageFormatter(row.images)"
+              alt="..."
+              class="table-img"
+              title="image"
+            />
+          </td>
+        </ng-container>
+
+        <!-- Group Column -->
+
+        <ng-container matColumnDef="group">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="table-header"
+            mat-sort-header
+          >
+            Group
+          </th>
+          <td mat-cell *matCellDef="let row" class="table-body">
+            {{ dataFormatterService.groupsOneListFormatter(row.group).label }}
+          </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="table-header">
+            Actions
+          </th>
+          <td mat-cell *matCellDef="let element" class="table-body">
+            <div class="table-buttons-wrapper">
+              <button
+                mat-flat-button
+                color="success"
+                class="table-button"
+                (click)="edit(element)"
+              >
+                edit
+              </button>
+              <button
+                mat-flat-button
+                color="warn"
+                class="table-button"
+                (click)="openDeleteModal(element.id)"
+              >
+                delete
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 50]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </mat-card-content>
+</mat-card>
