@@ -9,7 +9,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   @Input() isMenuOpened: boolean;
@@ -17,7 +17,8 @@ export class HeaderComponent {
   public user$: Observable<Users>;
   public routers: typeof routes = routes;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router) {
     this.user$ = this.authService.getCurrentUserInfo();
   }
 

@@ -1,9 +1,8 @@
-@import 'src/app/styles/colors';
-@import 'src/app/styles/font';
-@import 'src/app/styles/variables';
+@import "src/app/styles/colors";
+@import "src/app/styles/font";
+@import "src/app/styles/variables";
 
-.card,
-.filter-form {
+.card, .filter-form {
   margin-top: 16px;
 }
 
@@ -181,25 +180,26 @@
   padding: 0;
 }
 
-.image-preview {
-  width: 191px;
-  height: 141px;
-  background-size: cover;
-  background-position: 50% center;
-}
+        .image-preview {
+        width: 191px;
+        height: 141px;
+        background-size: cover;
+        background-position: 50% center;
+        }
 
-.image-preview {
-  width: 191px;
-  height: 141px;
-  background-size: cover;
-  background-position: 50% center;
-}
-.table-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-.file {
-  display: block;
-  white-space: nowrap;
-}
+        .image-preview {
+        width: 191px;
+        height: 141px;
+        background-size: cover;
+        background-position: 50% center;
+        }
+        .table-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        }
+        .file {
+        display: block;
+        white-space: nowrap;
+        }
+

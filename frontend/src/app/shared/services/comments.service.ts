@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -7,10 +8,13 @@ import { AutoCompleteItem } from '../models/common';
 const baseUrl = '/api/comments';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
+
 export class CommentsService {
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+  }
 
   getAll(): Observable<CommentsList> {
     return this.http.get<CommentsList>(baseUrl);
@@ -20,17 +24,12 @@ export class CommentsService {
     return this.http.get<CommentsList>(baseUrl + params);
   }
 
-  listAutocomplete(
-    query: string,
-    limit: number,
-  ): Observable<AutoCompleteItem[]> {
+  listAutocomplete(query: string, limit: number): Observable<AutoCompleteItem[]> {
     const params = {
       query,
-      limit: limit.toString(),
+      limit: limit.toString()
     };
-    return this.http.get<AutoCompleteItem[]>(`${baseUrl}/autocomplete`, {
-      params,
-    });
+    return this.http.get<AutoCompleteItem[]>(`${baseUrl}/autocomplete`, { params });
   }
 
   getById(id: string): Observable<Comments> {
@@ -38,14 +37,16 @@ export class CommentsService {
   }
 
   create(data: Comments): any {
-    return this.http.post(`${baseUrl}`, { data });
+    return this.http.post(`${baseUrl}`, {data});
   }
 
   update(data: any, id: string): any {
-    return this.http.put(`${baseUrl}/${id}`, { data, id });
+    return this.http.put(`${baseUrl}/${id}`, {data, id});
   }
 
   delete(id: string): any {
     return this.http.delete(`${baseUrl}/${id}`);
   }
+
 }
+

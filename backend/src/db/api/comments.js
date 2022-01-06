@@ -1,3 +1,4 @@
+
 const db = require('../models');
 const FileDBApi = require('./file');
 const crypto = require('crypto');
@@ -7,35 +8,40 @@ const Sequelize = db.Sequelize;
 const Op = Sequelize.Op;
 
 module.exports = class CommentsDBApi {
+
   static async create(data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
-    const transaction = (options && options.transaction) || undefined;
+  const currentUser = (options && options.currentUser) || { id: null };
+  const transaction = (options && options.transaction) || undefined;
 
-    const comments = await db.comments.create(
-      {
-        id: data.id || undefined,
+  const comments = await db.comments.create(
+  {
+  id: data.id || undefined,
 
-        content: data.content || null,
-        importHash: data.importHash || null,
-        createdById: currentUser.id,
-        updatedById: currentUser.id,
-      },
-      { transaction },
-    );
+    content: data.content
+    ||
+    null
+,
+
+  importHash: data.importHash || null,
+  createdById: currentUser.id,
+  updatedById: currentUser.id,
+  },
+  { transaction },
+  );
 
     await comments.setPost(data.post || null, {
-      transaction,
+    transaction,
     });
 
     await comments.setAuthor(data.author || null, {
-      transaction,
+    transaction,
     });
 
-    return comments;
+  return comments;
   }
 
   static async update(id, data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const comments = await db.comments.findByPk(id, {
@@ -44,10 +50,15 @@ module.exports = class CommentsDBApi {
 
     await comments.update(
       {
-        content: data.content || null,
+
+        content: data.content
+        ||
+        null
+,
+
         updatedById: currentUser.id,
       },
-      { transaction },
+      {transaction},
     );
 
     await comments.setPost(data.post || null, {
@@ -62,22 +73,19 @@ module.exports = class CommentsDBApi {
   }
 
   static async remove(id, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const comments = await db.comments.findByPk(id, options);
 
-    await comments.update(
-      {
-        deletedBy: currentUser.id,
-      },
-      {
-        transaction,
-      },
-    );
+    await comments.update({
+      deletedBy: currentUser.id
+    }, {
+      transaction,
+    });
 
     await comments.destroy({
-      transaction,
+      transaction
     });
 
     return comments;
@@ -86,20 +94,23 @@ module.exports = class CommentsDBApi {
   static async findBy(where, options) {
     const transaction = (options && options.transaction) || undefined;
 
-    const comments = await db.comments.findOne({ where }, { transaction });
+    const comments = await db.comments.findOne(
+      { where },
+      { transaction },
+    );
 
     if (!comments) {
       return comments;
     }
 
-    const output = comments.get({ plain: true });
+    const output = comments.get({plain: true});
 
     output.post = await comments.getPost({
-      transaction,
+      transaction
     });
 
     output.author = await comments.getAuthor({
-      transaction,
+      transaction
     });
 
     return output;
@@ -109,14 +120,15 @@ module.exports = class CommentsDBApi {
     var limit = filter.limit || 0;
     var offset = 0;
     if (filter.page != 1 && filter.page) {
-      const currentPage = +filter.page - 1;
-      offset = currentPage * limit;
+    const currentPage = +filter.page - 1;
+    offset = currentPage * limit;
     }
     var orderBy = null;
 
     const transaction = (options && options.transaction) || undefined;
     let where = {};
     let include = [
+
       {
         model: db.posts,
         as: 'post',
@@ -126,6 +138,7 @@ module.exports = class CommentsDBApi {
         model: db.users,
         as: 'author',
       },
+
     ];
 
     if (filter) {
@@ -139,7 +152,11 @@ module.exports = class CommentsDBApi {
       if (filter.content) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('comments', 'content', filter.content),
+          [Op.and]: Utils.ilike(
+            'comments',
+            'content',
+            filter.content,
+          ),
         };
       }
 
@@ -151,29 +168,31 @@ module.exports = class CommentsDBApi {
       ) {
         where = {
           ...where,
-          active: filter.active === true || filter.active === 'true',
+          active:
+            filter.active === true ||
+            filter.active === 'true',
         };
       }
 
       if (filter.post) {
-        var listItems = filter.post.split('|').map((item) => {
-          return Utils.uuid(item);
+        var listItems = filter.post.split('|').map(item => {
+          return  Utils.uuid(item)
         });
 
         where = {
           ...where,
-          postId: { [Op.or]: listItems },
+          postId: {[Op.or]: listItems}
         };
       }
 
       if (filter.author) {
-        var listItems = filter.author.split('|').map((item) => {
-          return Utils.uuid(item);
+        var listItems = filter.author.split('|').map(item => {
+          return  Utils.uuid(item)
         });
 
         where = {
           ...where,
-          authorId: { [Op.or]: listItems },
+          authorId: {[Op.or]: listItems}
         };
       }
 
@@ -202,19 +221,23 @@ module.exports = class CommentsDBApi {
       }
     }
 
-    let { rows, count } = await db.comments.findAndCountAll({
-      where,
-      include,
-      limit: limit ? Number(limit) : undefined,
-      offset: offset ? Number(offset) : undefined,
-      order: orderBy ? [orderBy.split('_')] : [['createdAt', 'DESC']],
-      transaction,
-    });
+    let { rows, count } = await db.comments.findAndCountAll(
+      {
+        where,
+        include,
+        limit: limit ? Number(limit) : undefined,
+        offset: offset ? Number(offset) : undefined,
+        order: orderBy
+          ? [orderBy.split('_')]
+          : [['createdAt', 'DESC']],
+        transaction,
+      },
+    );
 
-    //    rows = await this._fillWithRelationsAndFilesForRows(
-    //      rows,
-    //      options,
-    //    );
+//    rows = await this._fillWithRelationsAndFilesForRows(
+//      rows,
+//      options,
+//    );
 
     return { rows, count };
   }
@@ -226,13 +249,17 @@ module.exports = class CommentsDBApi {
       where = {
         [Op.or]: [
           { ['id']: Utils.uuid(query) },
-          Utils.ilike('comments', 'content', query),
+          Utils.ilike(
+            'comments',
+            'content',
+            query,
+          ),
         ],
       };
     }
 
     const records = await db.comments.findAll({
-      attributes: ['id', 'content'],
+      attributes: [ 'id', 'content' ],
       where,
       limit: limit ? Number(limit) : undefined,
       orderBy: [['content', 'ASC']],
@@ -243,4 +270,6 @@ module.exports = class CommentsDBApi {
       label: record.content,
     }));
   }
+
 };
+

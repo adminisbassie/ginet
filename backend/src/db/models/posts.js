@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const posts = sequelize.define(
     'posts',
     {
@@ -14,12 +14,14 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      title: {
+title: {
         type: DataTypes.TEXT,
+
       },
 
-      content: {
+content: {
         type: DataTypes.TEXT,
+
       },
 
       importHash: {
@@ -36,6 +38,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   posts.associate = (db) => {
+
     db.posts.belongsTo(db.groups, {
       as: 'group',
       constraints: false,
@@ -62,3 +65,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return posts;
 };
+

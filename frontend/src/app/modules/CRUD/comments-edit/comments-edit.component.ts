@@ -1,27 +1,24 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { routes, AUTO_COMPLETE_LIMIT } from '../../../consts';
 import { DataFormatterService } from '../../../shared/services/data-formatter.service';
 import { AutoCompleteItem } from '../../../shared/models/common';
-import { CommentsService } from '../../../shared/services/comments.service';
+import {CommentsService} from '../../../shared/services/comments.service';
 
-import { PostsService } from '../../../shared/services/posts.service';
+    import {PostsService} from '../../../shared/services/posts.service';
 
-import { UsersService } from '../../../shared/services/users.service';
+    import {UsersService} from '../../../shared/services/users.service';
 
 @Component({
   selector: 'app-comments-edit',
   templateUrl: './comments-edit.component.html',
-  styleUrls: ['./comments-edit.component.scss'],
+  styleUrls: ['./comments-edit.component.scss']
 })
 export class CommentsEditComponent implements OnInit {
+
   selectedComments;
   loading = false;
   public routes: typeof routes = routes;
@@ -29,49 +26,50 @@ export class CommentsEditComponent implements OnInit {
   AUTO_COMPLETE_LIMIT = AUTO_COMPLETE_LIMIT;
   selectedId = this.route.snapshot.params.id;
 
-  posts: AutoCompleteItem[] = [];
+    posts: AutoCompleteItem[] = [];
 
-  users: AutoCompleteItem[] = [];
+    users: AutoCompleteItem[] = [];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,
-    private dataFormatterService: DataFormatterService,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private toastr: ToastrService,
+              private dataFormatterService: DataFormatterService,
 
-    private postsService: PostsService,
+              private postsService: PostsService,
 
-    private usersService: UsersService,
+              private usersService: UsersService,
 
-    private commentsService: CommentsService,
-  ) {
+              private commentsService: CommentsService) {
     this.form = this.formBuilder.group({
-      content: [''],
 
-      post: [null],
+          content: [''],
 
-      author: [null],
+          post: [null],
+
+          author: [null],
+
     });
   }
 
   ngOnInit(): void {
     this.getCommentsById();
 
-    this.getPosts('');
+      this.getPosts('');
 
-    this.getUsers('');
+      this.getUsers('');
+
   }
 
   onSave(): void {
     this.commentsService.update(this.form.value, this.selectedId).subscribe({
-      next: (res) => {
+      next: res => {
         this.toastr.success('Comments updated successfully');
         this.router.navigate([this.routes.Comments]);
       },
-      error: (err) => {
+      error: err => {
         this.toastr.error('Something was wrong. Try again');
-      },
+      }
     });
   }
 
@@ -80,7 +78,8 @@ export class CommentsEditComponent implements OnInit {
   }
 
   private getCommentsById(): void {
-    this.commentsService.getById(this.selectedId).subscribe((res) => {
+    this.commentsService.getById(this.selectedId).subscribe(res => {
+
       res.post = res.post?.id;
 
       res.author = res.author?.id;
@@ -89,19 +88,21 @@ export class CommentsEditComponent implements OnInit {
     });
   }
 
-  getPosts(searchValue: string): void {
-    const query = searchValue;
-    const limit = this.AUTO_COMPLETE_LIMIT;
-    this.postsService.listAutocomplete(query, limit).subscribe((res) => {
-      this.posts = res;
-    });
-  }
+      getPosts(searchValue: string): void {
+        const query = searchValue;
+        const limit = this.AUTO_COMPLETE_LIMIT;
+        this.postsService.listAutocomplete(query, limit).subscribe(res => {
+          this.posts = res;
+        });
+      }
 
-  getUsers(searchValue: string): void {
-    const query = searchValue;
-    const limit = this.AUTO_COMPLETE_LIMIT;
-    this.usersService.listAutocomplete(query, limit).subscribe((res) => {
-      this.users = res;
-    });
-  }
+      getUsers(searchValue: string): void {
+        const query = searchValue;
+        const limit = this.AUTO_COMPLETE_LIMIT;
+        this.usersService.listAutocomplete(query, limit).subscribe(res => {
+          this.users = res;
+        });
+      }
+
 }
+

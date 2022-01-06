@@ -7,17 +7,15 @@ import { AuthService } from '../../../../shared/services/auth.service';
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth-page.component.html',
-  styleUrls: ['./auth-page.component.scss'],
+  styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent {
   public todayDate: Date = new Date();
   public routers: typeof routes = routes;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-  ) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute) {
     if (this.authService.isAuthenticated()) {
       this.authService.receiveLogin();
     }
@@ -38,6 +36,6 @@ export class AuthPageComponent {
   }
 
   public googleLogin() {
-    this.authService.loginUser({ social: 'google' });
+    this.authService.loginUser({social: 'google'});
   }
 }

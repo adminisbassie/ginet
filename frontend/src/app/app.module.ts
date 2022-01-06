@@ -23,7 +23,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
+  declarations: [
+    AppComponent,
+    NotFoundComponent
+  ],
   imports: [
     BrowserModule,
     SharedModule,
@@ -44,15 +47,13 @@ import { HttpInterceptorService } from './shared/services/http-interceptor.servi
     MatRadioModule,
     MatSlideToggleModule,
     FormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true,
-    },
+      provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

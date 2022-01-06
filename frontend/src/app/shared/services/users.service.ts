@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -7,10 +8,13 @@ import { AutoCompleteItem } from '../models/common';
 const baseUrl = '/api/users';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
+
 export class UsersService {
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+  }
 
   getAll(): Observable<UsersList> {
     return this.http.get<UsersList>(baseUrl);
@@ -20,17 +24,12 @@ export class UsersService {
     return this.http.get<UsersList>(baseUrl + params);
   }
 
-  listAutocomplete(
-    query: string,
-    limit: number,
-  ): Observable<AutoCompleteItem[]> {
+  listAutocomplete(query: string, limit: number): Observable<AutoCompleteItem[]> {
     const params = {
       query,
-      limit: limit.toString(),
+      limit: limit.toString()
     };
-    return this.http.get<AutoCompleteItem[]>(`${baseUrl}/autocomplete`, {
-      params,
-    });
+    return this.http.get<AutoCompleteItem[]>(`${baseUrl}/autocomplete`, { params });
   }
 
   getById(id: string): Observable<Users> {
@@ -38,14 +37,16 @@ export class UsersService {
   }
 
   create(data: Users): any {
-    return this.http.post(`${baseUrl}`, { data });
+    return this.http.post(`${baseUrl}`, {data});
   }
 
   update(data: any, id: string): any {
-    return this.http.put(`${baseUrl}/${id}`, { data, id });
+    return this.http.put(`${baseUrl}/${id}`, {data, id});
   }
 
   delete(id: string): any {
     return this.http.delete(`${baseUrl}/${id}`);
   }
+
 }
+

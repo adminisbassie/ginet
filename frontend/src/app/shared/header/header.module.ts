@@ -20,9 +20,13 @@ import { RouterModule } from '@angular/router';
     NotificationsComponent,
     UserComponent,
     SearchComponent,
-    ShortNamePipe,
+    ShortNamePipe
   ],
-  exports: [HeaderComponent, ShortNamePipe, SearchComponent],
+  exports: [
+    HeaderComponent,
+    ShortNamePipe,
+    SearchComponent
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -32,7 +36,8 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     MatInputModule,
     MatBadgeModule,
-    RouterModule,
-  ],
+    RouterModule
+  ]
 })
-export class HeaderModule {}
+export class HeaderModule {
+}

@@ -1,3 +1,4 @@
+
 <app-breadcrumb [path]="routes.Posts_EDIT"></app-breadcrumb>
 
 <mat-card class="card">
@@ -6,57 +7,46 @@
   </mat-card-title>
 
   <mat-card-content [formGroup]="form">
-    <div class="input-wrapper">
-      <p class="input-title">Title</p>
-      <mat-form-field appearance="legacy" class="input-field">
-        <input
-          matInput
-          formControlName="title"
-          placeholder="Title"
-          class="input-text"
-        />
-      </mat-form-field>
-    </div>
 
-    <div class="input-wrapper">
-      <p class="input-title">Content</p>
-      <mat-form-field appearance="legacy" class="input-field">
-        <textarea
-          matInput
-          formControlName="content"
-          placeholder="Content"
-        ></textarea>
-      </mat-form-field>
-    </div>
+        <div class="input-wrapper">
+          <p class="input-title">Title</p>
+          <mat-form-field appearance="legacy" class="input-field">
+            <input matInput formControlName="title" placeholder="Title" class="input-text">
+          </mat-form-field>
+        </div>
 
-    <app-image-uploader
-      (imageUploaded)="imagesAdd($event)"
-      (imageDeleted)="imagesDel($event)"
-      [imageList]="form.value.images"
-      [entityName]="'posts'"
-      [propertyName]="'images'"
-    >
-    </app-image-uploader>
+        <div class="input-wrapper">
+          <p class="input-title">Content</p>
+          <mat-form-field appearance="legacy" class="input-field">
+            <textarea matInput formControlName="content" placeholder="Content"></textarea>
+          </mat-form-field>
+        </div>
 
-    <div class="input-wrapper">
-      <p class="input-title">Group</p>
-      <div class="input-field">
-        <ng-select
-          [items]="groups"
-          formControlName="group"
-          [multiple]="false"
-          (search)="getGroups($event.term)"
-          (close)="getGroups('')"
-          appendTo="body"
-          bindLabel="label"
-          bindValue="id"
-          placeholder="Please select..."
-        >
-        </ng-select>
-      </div>
-    </div>
+<app-image-uploader (imageUploaded)=imagesAdd($event)
+                    (imageDeleted)=imagesDel($event)
+                    [imageList]="form.value.images"
+                    [entityName]="'posts'"
+                    [propertyName]="'images'">
+</app-image-uploader>
+
+<div class="input-wrapper">
+  <p class="input-title">Group</p>
+  <div class="input-field">
+    <ng-select [items]="groups"
+               formControlName="group"
+               [multiple]="false"
+               (search)="getGroups($event.term)"
+               (close)="getGroups('')"
+               appendTo="body"
+               bindLabel="label"
+               bindValue="id"
+               placeholder="Please select...">
+    </ng-select>
+  </div>
+  </div>
 
     <button (click)="onSave()" mat-flat-button color="success">Save</button>
     <button (click)="onCancel()" mat-flat-button color="default">Cancel</button>
   </mat-card-content>
-</mat-card>
+  </mat-card>
+

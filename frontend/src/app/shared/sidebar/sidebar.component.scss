@@ -1,7 +1,7 @@
-@import 'src/app/styles/colors';
-@import 'src/app/styles/font';
-@import 'src/app/styles/variables';
-@import 'src/app/styles/sidebar';
+@import "src/app/styles/colors";
+@import "src/app/styles/font";
+@import "src/app/styles/variables";
+@import "src/app/styles/sidebar";
 
 .mat-list-base {
   border-bottom: 1px solid $gray-80;
@@ -36,6 +36,7 @@
   color: $sidebar-icon-color;
   padding: 0;
 }
+
 
 .sidebar-title {
   color: $sidebar-title-color;
@@ -78,6 +79,7 @@
   }
 }
 
+
 .mat-tree-item {
   display: flex;
   cursor: pointer;
@@ -106,7 +108,7 @@
     }
   }
 
-  & > mat-icon {
+  &>mat-icon {
     display: none;
   }
 }
@@ -131,7 +133,7 @@ mat-tree-node {
   }
 }
 
-mat-tree-node[aria-expanded='true'] {
+mat-tree-node[aria-expanded="true"] {
   & .mat-tree-item {
     & mat-icon {
       display: block;
@@ -154,20 +156,20 @@ mat-tree-node[aria-expanded='true'] {
 
 .rotateUp {
   transform: rotate(180deg);
-  transition: transform 0.3s linear;
+  transition: transform .3s linear;
 }
 
 .rotateDown {
   transform: rotate(0deg);
-  transition: transform 0.3s linear;
+  transition: transform .3s linear;
 }
 
 .mat-badge-content {
   font-weight: $fw-normal;
 }
 
-.add-section-wrapper,
-.chat-section-wrapper {
+
+.add-section-wrapper, .chat-section-wrapper {
   display: flex;
   align-items: center;
   padding: 8px 16px;
@@ -179,8 +181,7 @@ mat-tree-node[aria-expanded='true'] {
   padding: 8px 16px 16px 0;
 }
 
-.add-icon-wrapper,
-.chat-icon-wrapper {
+.add-icon-wrapper, .chat-icon-wrapper {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -199,14 +200,12 @@ mat-tree-node[aria-expanded='true'] {
   margin-left: 0;
 }
 
-.add-icon,
-.chat-icon {
+.add-icon, .chat-icon {
   color: $white;
   margin: 0;
 }
 
-.add-section-title,
-.chat-section-title {
+.add-section-title, .chat-section-title {
   margin: 0;
 }
 
@@ -242,10 +241,11 @@ mat-tree-node[aria-expanded='true'] {
   box-shadow: none;
 
   &:hover {
-    background-color: #8b9bff;
+    background-color: #8B9BFF;
   }
 }
 
 .space {
   margin-bottom: 240px;
 }
+

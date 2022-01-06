@@ -1,3 +1,4 @@
+
 const db = require('../models');
 const FileDBApi = require('./file');
 const crypto = require('crypto');
@@ -7,35 +8,40 @@ const Sequelize = db.Sequelize;
 const Op = Sequelize.Op;
 
 module.exports = class ReactionDBApi {
+
   static async create(data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
-    const transaction = (options && options.transaction) || undefined;
+  const currentUser = (options && options.currentUser) || { id: null };
+  const transaction = (options && options.transaction) || undefined;
 
-    const reaction = await db.reaction.create(
-      {
-        id: data.id || undefined,
+  const reaction = await db.reaction.create(
+  {
+  id: data.id || undefined,
 
-        name: data.name || null,
-        importHash: data.importHash || null,
-        createdById: currentUser.id,
-        updatedById: currentUser.id,
-      },
-      { transaction },
-    );
+    name: data.name
+    ||
+    null
+,
+
+  importHash: data.importHash || null,
+  createdById: currentUser.id,
+  updatedById: currentUser.id,
+  },
+  { transaction },
+  );
 
     await reaction.setUser(data.user || null, {
-      transaction,
+    transaction,
     });
 
     await reaction.setPost(data.post || null, {
-      transaction,
+    transaction,
     });
 
-    return reaction;
+  return reaction;
   }
 
   static async update(id, data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const reaction = await db.reaction.findByPk(id, {
@@ -44,10 +50,15 @@ module.exports = class ReactionDBApi {
 
     await reaction.update(
       {
-        name: data.name || null,
+
+        name: data.name
+        ||
+        null
+,
+
         updatedById: currentUser.id,
       },
-      { transaction },
+      {transaction},
     );
 
     await reaction.setUser(data.user || null, {
@@ -62,22 +73,19 @@ module.exports = class ReactionDBApi {
   }
 
   static async remove(id, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const reaction = await db.reaction.findByPk(id, options);
 
-    await reaction.update(
-      {
-        deletedBy: currentUser.id,
-      },
-      {
-        transaction,
-      },
-    );
+    await reaction.update({
+      deletedBy: currentUser.id
+    }, {
+      transaction,
+    });
 
     await reaction.destroy({
-      transaction,
+      transaction
     });
 
     return reaction;
@@ -86,20 +94,23 @@ module.exports = class ReactionDBApi {
   static async findBy(where, options) {
     const transaction = (options && options.transaction) || undefined;
 
-    const reaction = await db.reaction.findOne({ where }, { transaction });
+    const reaction = await db.reaction.findOne(
+      { where },
+      { transaction },
+    );
 
     if (!reaction) {
       return reaction;
     }
 
-    const output = reaction.get({ plain: true });
+    const output = reaction.get({plain: true});
 
     output.user = await reaction.getUser({
-      transaction,
+      transaction
     });
 
     output.post = await reaction.getPost({
-      transaction,
+      transaction
     });
 
     return output;
@@ -109,14 +120,15 @@ module.exports = class ReactionDBApi {
     var limit = filter.limit || 0;
     var offset = 0;
     if (filter.page != 1 && filter.page) {
-      const currentPage = +filter.page - 1;
-      offset = currentPage * limit;
+    const currentPage = +filter.page - 1;
+    offset = currentPage * limit;
     }
     var orderBy = null;
 
     const transaction = (options && options.transaction) || undefined;
     let where = {};
     let include = [
+
       {
         model: db.users,
         as: 'user',
@@ -126,6 +138,7 @@ module.exports = class ReactionDBApi {
         model: db.posts,
         as: 'post',
       },
+
     ];
 
     if (filter) {
@@ -144,7 +157,9 @@ module.exports = class ReactionDBApi {
       ) {
         where = {
           ...where,
-          active: filter.active === true || filter.active === 'true',
+          active:
+            filter.active === true ||
+            filter.active === 'true',
         };
       }
 
@@ -156,24 +171,24 @@ module.exports = class ReactionDBApi {
       }
 
       if (filter.user) {
-        var listItems = filter.user.split('|').map((item) => {
-          return Utils.uuid(item);
+        var listItems = filter.user.split('|').map(item => {
+          return  Utils.uuid(item)
         });
 
         where = {
           ...where,
-          userId: { [Op.or]: listItems },
+          userId: {[Op.or]: listItems}
         };
       }
 
       if (filter.post) {
-        var listItems = filter.post.split('|').map((item) => {
-          return Utils.uuid(item);
+        var listItems = filter.post.split('|').map(item => {
+          return  Utils.uuid(item)
         });
 
         where = {
           ...where,
-          postId: { [Op.or]: listItems },
+          postId: {[Op.or]: listItems}
         };
       }
 
@@ -202,19 +217,23 @@ module.exports = class ReactionDBApi {
       }
     }
 
-    let { rows, count } = await db.reaction.findAndCountAll({
-      where,
-      include,
-      limit: limit ? Number(limit) : undefined,
-      offset: offset ? Number(offset) : undefined,
-      order: orderBy ? [orderBy.split('_')] : [['createdAt', 'DESC']],
-      transaction,
-    });
+    let { rows, count } = await db.reaction.findAndCountAll(
+      {
+        where,
+        include,
+        limit: limit ? Number(limit) : undefined,
+        offset: offset ? Number(offset) : undefined,
+        order: orderBy
+          ? [orderBy.split('_')]
+          : [['createdAt', 'DESC']],
+        transaction,
+      },
+    );
 
-    //    rows = await this._fillWithRelationsAndFilesForRows(
-    //      rows,
-    //      options,
-    //    );
+//    rows = await this._fillWithRelationsAndFilesForRows(
+//      rows,
+//      options,
+//    );
 
     return { rows, count };
   }
@@ -226,13 +245,17 @@ module.exports = class ReactionDBApi {
       where = {
         [Op.or]: [
           { ['id']: Utils.uuid(query) },
-          Utils.ilike('reaction', 'name', query),
+          Utils.ilike(
+            'reaction',
+            'name',
+            query,
+          ),
         ],
       };
     }
 
     const records = await db.reaction.findAll({
-      attributes: ['id', 'name'],
+      attributes: [ 'id', 'name' ],
       where,
       limit: limit ? Number(limit) : undefined,
       orderBy: [['name', 'ASC']],
@@ -243,4 +266,6 @@ module.exports = class ReactionDBApi {
       label: record.name,
     }));
   }
+
 };
+

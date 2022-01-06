@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const groups = sequelize.define(
     'groups',
     {
@@ -14,12 +14,14 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      name: {
+name: {
         type: DataTypes.TEXT,
+
       },
 
-      description: {
+description: {
         type: DataTypes.TEXT,
+
       },
 
       importHash: {
@@ -36,6 +38,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   groups.associate = (db) => {
+
     db.groups.hasMany(db.file, {
       as: 'images',
       foreignKey: 'belongsToId',
@@ -57,3 +60,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return groups;
 };
+

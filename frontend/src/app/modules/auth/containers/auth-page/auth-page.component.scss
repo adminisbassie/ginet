@@ -1,6 +1,6 @@
-@import '../../../../styles/colors';
-@import '../../../../styles/variables';
-@import '../../../../styles/font';
+@import "../../../../styles/colors";
+@import "../../../../styles/variables";
+@import "../../../../styles/font";
 
 .auth-page {
   width: 100%;
@@ -36,7 +36,7 @@
       width: 70%;
     }
 
-    @media (min-width: $medium) and (max-width: $large) {
+    @media (min-width: $medium) and (max-width: $large){
       width: 45%;
     }
   }
@@ -78,8 +78,7 @@
     width: 95%;
     padding: 0;
     background-color: $white;
-    box-shadow: 0 0 11px 0 $shadow-white, 0 0 0 -2px $shadow-grey,
-      0 1px 8px 0 $shadow-dark-grey;
+    box-shadow: 0 0 11px 0 $shadow-white, 0 0 0 -2px $shadow-grey, 0 1px 8px 0 $shadow-dark-grey;
   }
 
   &__google-button-icon {
@@ -105,7 +104,7 @@
     font-size: $fs-xs;
     padding: 0 16px;
     margin: 0;
-    color: $dark-grey;
+    color: $dark-grey
   }
 
   &__logo {

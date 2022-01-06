@@ -10,19 +10,17 @@ import { routes } from '../../consts';
 const jwt = new JwtHelperService();
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   config: any;
   api = '/api/auth';
   ROUTES: typeof routes = routes;
 
-  constructor(
-    appConfig: AppConfig,
-    private http: HttpClient,
-    private router: Router,
-    private toastr: ToastrService,
-  ) {
+  constructor(appConfig: AppConfig,
+              private http: HttpClient,
+              private router: Router,
+              private toastr: ToastrService) {
     this.config = appConfig.getConfig();
   }
 
@@ -67,19 +65,14 @@ export class AuthService {
     this.requestLogin();
     if (creds.social) {
       // tslint:disable-next-line
-      window.location.href =
-        this.config.baseURLApi + `${this.api}/signin/` + creds.social;
+      window.location.href = this.config.baseURLApi + `${this.api}/signin/` + creds.social;
     } else if (creds.email.length > 0 && creds.password.length > 0) {
-      this.http
-        .post(`${this.api}/signin/local`, creds, { responseType: 'text' })
-        .subscribe(
-          (token: string) => {
-            this.receiveToken(token);
-          },
-          (err) => {
-            this.toastr.error('Something was wrong. Try again');
-          },
-        );
+      this.http.post(`${this.api}/signin/local`, creds, {responseType: 'text'}).subscribe((token: string) => {
+        this.receiveToken(token);
+      }, err => {
+        this.toastr.error('Something was wrong. Try again');
+      });
+
     } else {
       this.toastr.error('Something was wrong. Try again');
     }
@@ -89,17 +82,12 @@ export class AuthService {
     this.requestRegister();
     const creds = payload;
     if (creds.email.length > 0 && creds.password.length > 0) {
-      this.http
-        .post(`${this.api}/signup`, creds, { responseType: 'text' })
-        .subscribe(
-          (token: string) => {
-            this.toastr.success("You've been registered successfully");
-            this.receiveToken(token);
-          },
-          (err) => {
-            this.registerError(err.response.data);
-          },
-        );
+      this.http.post(`${this.api}/signup`, creds, {responseType: 'text'}).subscribe((token: string) => {
+        this.toastr.success('You\'ve been registered successfully');
+        this.receiveToken(token);
+      }, err => {
+        this.registerError(err.response.data);
+      });
     } else {
       this.registerError('Something was wrong. Try again');
     }
@@ -157,4 +145,5 @@ export class AuthService {
   changePassword(data): Observable<any> {
     return this.http.put(`${this.api}/password-update`, data);
   }
+
 }

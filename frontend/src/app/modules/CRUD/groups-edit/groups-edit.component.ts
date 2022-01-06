@@ -1,23 +1,20 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { routes, AUTO_COMPLETE_LIMIT } from '../../../consts';
 import { DataFormatterService } from '../../../shared/services/data-formatter.service';
 import { AutoCompleteItem } from '../../../shared/models/common';
-import { GroupsService } from '../../../shared/services/groups.service';
+import {GroupsService} from '../../../shared/services/groups.service';
 
 @Component({
   selector: 'app-groups-edit',
   templateUrl: './groups-edit.component.html',
-  styleUrls: ['./groups-edit.component.scss'],
+  styleUrls: ['./groups-edit.component.scss']
 })
 export class GroupsEditComponent implements OnInit {
+
   selectedGroups;
   loading = false;
   public routes: typeof routes = routes;
@@ -25,46 +22,45 @@ export class GroupsEditComponent implements OnInit {
   AUTO_COMPLETE_LIMIT = AUTO_COMPLETE_LIMIT;
   selectedId = this.route.snapshot.params.id;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,
-    private dataFormatterService: DataFormatterService,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private toastr: ToastrService,
+              private dataFormatterService: DataFormatterService,
 
-    private groupsService: GroupsService,
-  ) {
+              private groupsService: GroupsService) {
     this.form = this.formBuilder.group({
-      name: [''],
 
-      description: [''],
+          name: [''],
 
-      images: [[]],
+          description: [''],
+
+          images: [[]],
+
     });
   }
 
   ngOnInit(): void {
     this.getGroupsById();
+
   }
 
-  imagesAdd(val) {
-    this.form.value.images.push(val);
-  }
-  imagesDel(id) {
-    this.form.value.images = this.form.value.images.filter(
-      (img) => img.id !== id,
-    );
-  }
+      imagesAdd(val) {
+      this.form.value.images.push(val);
+      }
+      imagesDel(id) {
+      this.form.value.images = this.form.value.images.filter(img => img.id !== id);
+      }
 
   onSave(): void {
     this.groupsService.update(this.form.value, this.selectedId).subscribe({
-      next: (res) => {
+      next: res => {
         this.toastr.success('Groups updated successfully');
         this.router.navigate([this.routes.Groups]);
       },
-      error: (err) => {
+      error: err => {
         this.toastr.error('Something was wrong. Try again');
-      },
+      }
     });
   }
 
@@ -73,8 +69,11 @@ export class GroupsEditComponent implements OnInit {
   }
 
   private getGroupsById(): void {
-    this.groupsService.getById(this.selectedId).subscribe((res) => {
+    this.groupsService.getById(this.selectedId).subscribe(res => {
+
       this.form.patchValue(res);
     });
   }
+
 }
+

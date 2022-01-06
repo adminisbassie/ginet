@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home.component';
+import {HomeComponent} from './home.component';
+
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [],
+    declarations: [
+        HomeComponent
+    ],
+    imports: [
+    ],
 })
 export class HomeModule {}

@@ -5,19 +5,20 @@ import { AuthService } from '../../../../shared/services/auth.service';
 @Component({
   selector: 'app-sign-form',
   templateUrl: './sign-form.component.html',
-  styleUrls: ['./sign-form.component.scss'],
+  styleUrls: ['./sign-form.component.scss']
 })
 export class SignFormComponent implements OnInit {
   @Output() sendSignForm = new EventEmitter<void>();
   public form: FormGroup;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) {
+  }
 
   public ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required])
     });
   }
 
@@ -55,4 +56,5 @@ export class SignFormComponent implements OnInit {
     const confirmPassword = this.form.value.confirmPassword;
     return password && password === confirmPassword;
   }
+
 }

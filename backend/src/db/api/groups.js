@@ -1,3 +1,4 @@
+
 const db = require('../models');
 const FileDBApi = require('./file');
 const crypto = require('crypto');
@@ -7,38 +8,47 @@ const Sequelize = db.Sequelize;
 const Op = Sequelize.Op;
 
 module.exports = class GroupsDBApi {
+
   static async create(data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
-    const transaction = (options && options.transaction) || undefined;
+  const currentUser = (options && options.currentUser) || { id: null };
+  const transaction = (options && options.transaction) || undefined;
 
-    const groups = await db.groups.create(
-      {
-        id: data.id || undefined,
+  const groups = await db.groups.create(
+  {
+  id: data.id || undefined,
 
-        name: data.name || null,
-        description: data.description || null,
-        importHash: data.importHash || null,
-        createdById: currentUser.id,
-        updatedById: currentUser.id,
-      },
-      { transaction },
-    );
+    name: data.name
+    ||
+    null
+,
+
+    description: data.description
+    ||
+    null
+,
+
+  importHash: data.importHash || null,
+  createdById: currentUser.id,
+  updatedById: currentUser.id,
+  },
+  { transaction },
+  );
 
     await FileDBApi.replaceRelationFiles(
-      {
-        belongsTo: db.groups.getTableName(),
-        belongsToColumn: 'images',
-        belongsToId: groups.id,
-      },
-      data.images,
-      options,
+    {
+    belongsTo: db.groups.getTableName(),
+    belongsToColumn: 'images',
+    belongsToId: groups.id,
+    },
+    data.images,
+    options,
     );
 
-    return groups;
+  return groups;
   }
 
   static async update(id, data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const groups = await db.groups.findByPk(id, {
@@ -47,11 +57,20 @@ module.exports = class GroupsDBApi {
 
     await groups.update(
       {
-        name: data.name || null,
-        description: data.description || null,
+
+        name: data.name
+        ||
+        null
+,
+
+        description: data.description
+        ||
+        null
+,
+
         updatedById: currentUser.id,
       },
-      { transaction },
+      {transaction},
     );
 
     await FileDBApi.replaceRelationFiles(
@@ -68,22 +87,19 @@ module.exports = class GroupsDBApi {
   }
 
   static async remove(id, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const groups = await db.groups.findByPk(id, options);
 
-    await groups.update(
-      {
-        deletedBy: currentUser.id,
-      },
-      {
-        transaction,
-      },
-    );
+    await groups.update({
+      deletedBy: currentUser.id
+    }, {
+      transaction,
+    });
 
     await groups.destroy({
-      transaction,
+      transaction
     });
 
     return groups;
@@ -92,16 +108,19 @@ module.exports = class GroupsDBApi {
   static async findBy(where, options) {
     const transaction = (options && options.transaction) || undefined;
 
-    const groups = await db.groups.findOne({ where }, { transaction });
+    const groups = await db.groups.findOne(
+      { where },
+      { transaction },
+    );
 
     if (!groups) {
       return groups;
     }
 
-    const output = groups.get({ plain: true });
+    const output = groups.get({plain: true});
 
     output.images = await groups.getImages({
-      transaction,
+      transaction
     });
 
     return output;
@@ -111,18 +130,20 @@ module.exports = class GroupsDBApi {
     var limit = filter.limit || 0;
     var offset = 0;
     if (filter.page != 1 && filter.page) {
-      const currentPage = +filter.page - 1;
-      offset = currentPage * limit;
+    const currentPage = +filter.page - 1;
+    offset = currentPage * limit;
     }
     var orderBy = null;
 
     const transaction = (options && options.transaction) || undefined;
     let where = {};
     let include = [
+
       {
         model: db.file,
         as: 'images',
       },
+
     ];
 
     if (filter) {
@@ -136,14 +157,22 @@ module.exports = class GroupsDBApi {
       if (filter.name) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('groups', 'name', filter.name),
+          [Op.and]: Utils.ilike(
+            'groups',
+            'name',
+            filter.name,
+          ),
         };
       }
 
       if (filter.description) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('groups', 'description', filter.description),
+          [Op.and]: Utils.ilike(
+            'groups',
+            'description',
+            filter.description,
+          ),
         };
       }
 
@@ -155,7 +184,9 @@ module.exports = class GroupsDBApi {
       ) {
         where = {
           ...where,
-          active: filter.active === true || filter.active === 'true',
+          active:
+            filter.active === true ||
+            filter.active === 'true',
         };
       }
 
@@ -184,19 +215,23 @@ module.exports = class GroupsDBApi {
       }
     }
 
-    let { rows, count } = await db.groups.findAndCountAll({
-      where,
-      include,
-      limit: limit ? Number(limit) : undefined,
-      offset: offset ? Number(offset) : undefined,
-      order: orderBy ? [orderBy.split('_')] : [['createdAt', 'DESC']],
-      transaction,
-    });
+    let { rows, count } = await db.groups.findAndCountAll(
+      {
+        where,
+        include,
+        limit: limit ? Number(limit) : undefined,
+        offset: offset ? Number(offset) : undefined,
+        order: orderBy
+          ? [orderBy.split('_')]
+          : [['createdAt', 'DESC']],
+        transaction,
+      },
+    );
 
-    //    rows = await this._fillWithRelationsAndFilesForRows(
-    //      rows,
-    //      options,
-    //    );
+//    rows = await this._fillWithRelationsAndFilesForRows(
+//      rows,
+//      options,
+//    );
 
     return { rows, count };
   }
@@ -208,13 +243,17 @@ module.exports = class GroupsDBApi {
       where = {
         [Op.or]: [
           { ['id']: Utils.uuid(query) },
-          Utils.ilike('groups', 'name', query),
+          Utils.ilike(
+            'groups',
+            'name',
+            query,
+          ),
         ],
       };
     }
 
     const records = await db.groups.findAll({
-      attributes: ['id', 'name'],
+      attributes: [ 'id', 'name' ],
       where,
       limit: limit ? Number(limit) : undefined,
       orderBy: [['name', 'ASC']],
@@ -225,4 +264,6 @@ module.exports = class GroupsDBApi {
       label: record.name,
     }));
   }
+
 };
+

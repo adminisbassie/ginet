@@ -28,13 +28,18 @@ exports.fileRequest = function fileRequest(
       return;
     }
 
-    if (validations.entity) {
+    if (
+      validations.entity
+    ) {
       res.sendStatus(403);
       return;
     }
 
     if (validations.folderIncludesAuthenticationUid) {
-      folder = folder.replace(':userId', req.currentUser.authenticationUid);
+      folder = folder.replace(
+        ':userId',
+        req.currentUser.authenticationUid,
+      );
       if (
         !req.currentUser.authenticationUid ||
         !folder.includes(req.currentUser.authenticationUid)
@@ -61,7 +66,11 @@ exports.fileRequest = function fileRequest(
         return;
       }
 
-      const privateUrl = path.join(form.uploadDir, folder, filename);
+      const privateUrl = path.join(
+        form.uploadDir,
+        folder,
+        filename,
+      );
       ensureDirectoryExistence(privateUrl);
       fs.renameSync(fileTempUrl, privateUrl);
       res.sendStatus(200);
@@ -70,5 +79,5 @@ exports.fileRequest = function fileRequest(
     form.on('error', function (err) {
       res.status(500).send(err);
     });
-  };
-};
+  }
+}

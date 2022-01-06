@@ -1,9 +1,8 @@
-@import 'src/app/styles/colors';
-@import 'src/app/styles/font';
-@import 'src/app/styles/variables';
+@import "src/app/styles/colors";
+@import "src/app/styles/font";
+@import "src/app/styles/variables";
 
-.card,
-.filter-form {
+.card, .filter-form {
   margin-top: 16px;
 }
 
@@ -180,3 +179,4 @@
   font-size: 23px;
   padding: 0;
 }
+

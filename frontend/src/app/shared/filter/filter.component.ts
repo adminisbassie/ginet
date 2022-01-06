@@ -4,7 +4,7 @@ import { FilterConfig, FilterItems } from '../models/common';
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss'],
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
   @Input() config: FilterConfig[];
@@ -13,9 +13,10 @@ export class FilterComponent implements OnInit {
   @Output() deleteFilterConfirmed = new EventEmitter<any>();
   @Output() submitConfirmed = new EventEmitter<string>();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   delFilter(index) {
     this.config.splice(index, 1);
@@ -29,9 +30,7 @@ export class FilterComponent implements OnInit {
   submitHandler() {
     let request = '?';
     this.config.forEach((item: FilterConfig) => {
-      item.number
-        ? (request += `${item.filter}Range=${item.valueFrom}&${item.filter}Range=${item.valueTo}&`)
-        : (request += `${item.filter}=${item.value}&`);
+      item.number ? request += `${item.filter}Range=${item.valueFrom}&${item.filter}Range=${item.valueTo}&` : request += `${item.filter}=${item.value}&`
     });
 
     this.submitConfirmed.emit(request);
@@ -39,17 +38,11 @@ export class FilterComponent implements OnInit {
 
   onSelect(event: any, index: number, data: any) {
     data.filter = event.title;
-    data.number = event.number === 'true';
+    data.number = (event.number === 'true');
     this.config.splice(index, 1, data);
   }
 
-  onKeyUp(
-    value: any,
-    index: number,
-    data: any,
-    valueFrom?: any,
-    valueTo?: any,
-  ) {
+  onKeyUp(value: any, index: number, data: any, valueFrom?: any, valueTo?: any) {
     data.value = value;
     if (valueFrom) {
       data.valueFrom = valueFrom;
@@ -59,4 +52,5 @@ export class FilterComponent implements OnInit {
     }
     this.config.splice(index, 1, data);
   }
+
 }

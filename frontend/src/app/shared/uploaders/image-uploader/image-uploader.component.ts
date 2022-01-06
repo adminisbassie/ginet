@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppConfig } from '../../../app.config';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +8,7 @@ import { ImageInterface } from '../../models/image.interface';
 @Component({
   selector: 'app-image-uploader',
   templateUrl: './image-uploader.component.html',
-  styleUrls: ['./image-uploader.component.scss'],
+  styleUrls: ['./image-uploader.component.scss']
 })
 export class ImageUploaderComponent implements OnInit {
   @Input() entityName: string;
@@ -23,17 +23,17 @@ export class ImageUploaderComponent implements OnInit {
   uploadForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
-    imgSrc: new FormControl('', [Validators.required]),
+    imgSrc: new FormControl('', [Validators.required])
   });
 
-  constructor(
-    private appConfig: AppConfig,
-    private imageUploaderService: ImageUploaderService,
-  ) {
+
+  constructor(private appConfig: AppConfig,
+              private imageUploaderService: ImageUploaderService) {
     this.config = appConfig.getConfig();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   uploadFile(event: any): void {
     const config = this.config;
@@ -51,7 +51,7 @@ export class ImageUploaderComponent implements OnInit {
     formData.append('filename', `${id}.${extension}`);
 
     const api = `/api/file/upload/${this.entityName}/${this.propertyName}`;
-    this.imageUploaderService.upload(formData, api).subscribe((res) => {
+    this.imageUploaderService.upload(formData, api).subscribe(res => {
       console.log('Image has been uploaded.');
       this.showImage(event);
       this.emitChange(id, file, privateUrl, publicUrl);
@@ -72,7 +72,7 @@ export class ImageUploaderComponent implements OnInit {
       reader.onload = () => {
         this.imgFile = reader.result as string;
         this.uploadForm.patchValue({
-          imgSrc: reader.result,
+          imgSrc: reader.result
         });
       };
     }
@@ -80,11 +80,12 @@ export class ImageUploaderComponent implements OnInit {
 
   private extractExtensionFrom(filename): string {
     if (!filename) {
-      return null;
+      return null
     }
     const regex = /(?:\.([^.]+))?$/;
     return regex.exec(filename)[1];
   }
+
 
   private emitChange(id: string, file, privateUrl: string, publicUrl: string) {
     const imageDto: ImageInterface = {

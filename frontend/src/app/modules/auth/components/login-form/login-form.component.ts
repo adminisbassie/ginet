@@ -5,7 +5,7 @@ import { AppConfig } from '../../../../app.config';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss'],
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
   @Output() sendLoginForm = new EventEmitter<any>();
@@ -22,11 +22,8 @@ export class LoginFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl(this.email, [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: new FormControl(this.password, [Validators.required]),
+      email: new FormControl(this.email, [Validators.required, Validators.email]),
+      password: new FormControl(this.password, [Validators.required])
     });
   }
 

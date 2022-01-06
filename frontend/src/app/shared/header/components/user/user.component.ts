@@ -6,13 +6,13 @@ import { routes } from '../../../../consts';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
   @Input() user: Users;
   @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
   public routes: typeof routes = routes;
-  public flatlogicEmail: string = 'https://flatlogic.com';
+  public flatlogicEmail: string = "https://flatlogic.com";
 
   public signOutEmit(): void {
     this.signOut.emit();
@@ -25,6 +25,6 @@ export class UserComponent {
   avatar() {
     return this.user && this.user.avatar && this.user.avatar.length
       ? this.user.avatar[0].publicUrl
-      : './assets/profile.png';
+      : './assets/profile.png'
   }
 }

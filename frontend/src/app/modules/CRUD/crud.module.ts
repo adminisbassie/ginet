@@ -1,10 +1,8 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  OwlDateTimeModule,
-  OwlNativeDateTimeModule,
-} from '@danielmoncada/angular-datetime-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { CrudRoutingModule } from './crud-routing.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../../shared/shared.module';
@@ -22,56 +20,58 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 
-import { UsersCreateComponent } from './users-create/users-create.component';
-import { UsersEditComponent } from './users-edit/users-edit.component';
-import { UsersListComponent } from './users-list/users-list.component';
+  import { UsersCreateComponent } from './users-create/users-create.component';
+  import { UsersEditComponent } from './users-edit/users-edit.component';
+  import { UsersListComponent } from './users-list/users-list.component';
 
-import { PostsCreateComponent } from './posts-create/posts-create.component';
-import { PostsEditComponent } from './posts-edit/posts-edit.component';
-import { PostsListComponent } from './posts-list/posts-list.component';
+  import { PostsCreateComponent } from './posts-create/posts-create.component';
+  import { PostsEditComponent } from './posts-edit/posts-edit.component';
+  import { PostsListComponent } from './posts-list/posts-list.component';
 
-import { ReactionCreateComponent } from './reaction-create/reaction-create.component';
-import { ReactionEditComponent } from './reaction-edit/reaction-edit.component';
-import { ReactionListComponent } from './reaction-list/reaction-list.component';
+  import { ReactionCreateComponent } from './reaction-create/reaction-create.component';
+  import { ReactionEditComponent } from './reaction-edit/reaction-edit.component';
+  import { ReactionListComponent } from './reaction-list/reaction-list.component';
 
-import { CommentsCreateComponent } from './comments-create/comments-create.component';
-import { CommentsEditComponent } from './comments-edit/comments-edit.component';
-import { CommentsListComponent } from './comments-list/comments-list.component';
+  import { CommentsCreateComponent } from './comments-create/comments-create.component';
+  import { CommentsEditComponent } from './comments-edit/comments-edit.component';
+  import { CommentsListComponent } from './comments-list/comments-list.component';
 
-import { MessagesCreateComponent } from './messages-create/messages-create.component';
-import { MessagesEditComponent } from './messages-edit/messages-edit.component';
-import { MessagesListComponent } from './messages-list/messages-list.component';
+  import { MessagesCreateComponent } from './messages-create/messages-create.component';
+  import { MessagesEditComponent } from './messages-edit/messages-edit.component';
+  import { MessagesListComponent } from './messages-list/messages-list.component';
 
-import { GroupsCreateComponent } from './groups-create/groups-create.component';
-import { GroupsEditComponent } from './groups-edit/groups-edit.component';
-import { GroupsListComponent } from './groups-list/groups-list.component';
+  import { GroupsCreateComponent } from './groups-create/groups-create.component';
+  import { GroupsEditComponent } from './groups-edit/groups-edit.component';
+  import { GroupsListComponent } from './groups-list/groups-list.component';
 
 @NgModule({
   declarations: [
-    UsersCreateComponent,
-    UsersEditComponent,
-    UsersListComponent,
 
-    PostsCreateComponent,
-    PostsEditComponent,
-    PostsListComponent,
+      UsersCreateComponent,
+      UsersEditComponent,
+      UsersListComponent,
 
-    ReactionCreateComponent,
-    ReactionEditComponent,
-    ReactionListComponent,
+      PostsCreateComponent,
+      PostsEditComponent,
+      PostsListComponent,
 
-    CommentsCreateComponent,
-    CommentsEditComponent,
-    CommentsListComponent,
+      ReactionCreateComponent,
+      ReactionEditComponent,
+      ReactionListComponent,
 
-    MessagesCreateComponent,
-    MessagesEditComponent,
-    MessagesListComponent,
+      CommentsCreateComponent,
+      CommentsEditComponent,
+      CommentsListComponent,
 
-    GroupsCreateComponent,
-    GroupsEditComponent,
-    GroupsListComponent,
-  ],
+      MessagesCreateComponent,
+      MessagesEditComponent,
+      MessagesListComponent,
+
+      GroupsCreateComponent,
+      GroupsEditComponent,
+      GroupsListComponent,
+
+    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -93,7 +93,8 @@ import { GroupsListComponent } from './groups-list/groups-list.component';
     MatPaginatorModule,
     MatRadioModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-  ],
+    OwlNativeDateTimeModule
+    ]
 })
-export class CrudModule {}
+export class CrudModule { }
+

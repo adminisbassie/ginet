@@ -17,40 +17,28 @@ router.get('/download', (req, res) => {
   res.download(path.join(config.uploadDir, privateUrl));
 });
 
-router.post(
-  '/upload/users/avatar',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    fileRequest('users/avatar', {
-      entity: null,
-      maxFileSize: 10 * 1024 * 1024,
-      folderIncludesAuthenticationUid: false,
-    })(req, res);
-  },
-);
+router.post('/upload/users/avatar', passport.authenticate('jwt', {session: false}), (req, res) => {
+  fileRequest('users/avatar', {
+    entity: null,
+    maxFileSize: 10 * 1024 * 1024,
+    folderIncludesAuthenticationUid: false,
+  })(req, res);
+});
 
-router.post(
-  '/upload/posts/images',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    fileRequest('posts/images', {
-      entity: null,
-      maxFileSize: 10 * 1024 * 1024,
-      folderIncludesAuthenticationUid: false,
-    })(req, res);
-  },
-);
+router.post('/upload/posts/images', passport.authenticate('jwt', {session: false}), (req, res) => {
+  fileRequest('posts/images', {
+    entity: null,
+    maxFileSize: 10 * 1024 * 1024,
+    folderIncludesAuthenticationUid: false,
+  })(req, res);
+});
 
-router.post(
-  '/upload/groups/images',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    fileRequest('groups/images', {
-      entity: null,
-      maxFileSize: 10 * 1024 * 1024,
-      folderIncludesAuthenticationUid: false,
-    })(req, res);
-  },
-);
+router.post('/upload/groups/images', passport.authenticate('jwt', {session: false}), (req, res) => {
+  fileRequest('groups/images', {
+    entity: null,
+    maxFileSize: 10 * 1024 * 1024,
+    folderIncludesAuthenticationUid: false,
+  })(req, res);
+});
 
 module.exports = router;

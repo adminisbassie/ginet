@@ -26,7 +26,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [DashboardComponent, ChangePasswordComponent, ProfileComponent],
+  declarations: [
+    DashboardComponent,
+    ChangePasswordComponent,
+    ProfileComponent
+  ],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -49,7 +53,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatRadioModule,
     MatSlideToggleModule,
     MatCardModule,
-    MatCheckboxModule,
-  ],
+    MatCheckboxModule
+  ]
 })
-export class PagesModule {}
+export class PagesModule {
+}

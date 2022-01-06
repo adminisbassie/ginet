@@ -3,33 +3,58 @@
 export class Users {
   id: string;
 
-  firstName: string;
+    firstName: string
 
-  lastName: string;
+;
 
-  phoneNumber: string;
+    lastName: string
 
-  email: string;
+;
 
-  role: any;
+    phoneNumber: string
 
-  disabled: boolean;
+;
 
-  password: string;
+    email: string
 
-  emailVerified: boolean;
+;
 
-  emailVerificationToken: string;
+    role: any
+;
 
-  emailVerificationTokenExpiresAt: Date;
+    disabled: boolean
 
-  passwordResetToken: string;
+;
 
-  passwordResetTokenExpiresAt: Date;
+    password: string
 
-  provider: string;
+;
 
-  avatar: any[];
+    emailVerified: boolean
+
+;
+
+    emailVerificationToken: string
+
+;
+
+    emailVerificationTokenExpiresAt: Date
+
+;
+
+    passwordResetToken: string
+
+;
+
+    passwordResetTokenExpiresAt: Date
+
+;
+
+    provider: string
+
+;
+
+    avatar: any[];
 
   createdBy: any; // Users;
   updatedBy: any; //Users;
@@ -39,3 +64,4 @@ export interface UsersList {
   count: number;
   rows: Users[];
 }
+

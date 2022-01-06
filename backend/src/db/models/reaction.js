@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const reaction = sequelize.define(
     'reaction',
     {
@@ -14,26 +14,29 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      name: {
+name: {
         type: DataTypes.ENUM,
 
         values: [
-          'like',
 
-          'dislike',
+"like",
 
-          'love',
+"dislike",
 
-          'sad',
+"love",
 
-          'care',
+"sad",
 
-          'haha',
+"care",
 
-          'wow',
+"haha",
 
-          'angry',
+"wow",
+
+"angry"
+
         ],
+
       },
 
       importHash: {
@@ -50,6 +53,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   reaction.associate = (db) => {
+
     db.reaction.belongsTo(db.users, {
       as: 'user',
       constraints: false,
@@ -71,3 +75,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return reaction;
 };
+

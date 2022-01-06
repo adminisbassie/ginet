@@ -4,13 +4,17 @@
 export class Posts {
   id: string;
 
-  title: string;
+    title: string
 
-  content: string;
+;
 
-  group: any; // Groups;
+    content: string
 
-  images: any[];
+;
+
+    group: any; // Groups;
+
+    images: any[];
 
   createdBy: any; // Users;
   updatedBy: any; //Users;
@@ -20,3 +24,4 @@ export interface PostsList {
   count: number;
   rows: Posts[];
 }
+

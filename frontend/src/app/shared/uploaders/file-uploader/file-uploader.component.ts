@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FileUploaderService } from '../../services/file-uploader.service';
 import { AppConfig } from '../../../app.config';
@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html',
-  styleUrls: ['./file-uploader.component.scss'],
+  styleUrls: ['./file-uploader.component.scss']
 })
 export class FileUploaderComponent implements OnInit {
   @Input() entityName: string;
@@ -17,14 +17,13 @@ export class FileUploaderComponent implements OnInit {
   config: any;
   files = [];
 
-  constructor(
-    private appConfig: AppConfig,
-    private fileUploaderService: FileUploaderService,
-  ) {
+  constructor(private appConfig: AppConfig,
+              private fileUploaderService: FileUploaderService) {
     this.config = appConfig.getConfig();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   uploadFile(event: any): void {
     const config = this.config;
@@ -43,21 +42,24 @@ export class FileUploaderComponent implements OnInit {
     formData.append('filename', `${id}.${extension}`);
 
     const api = `/api/file/upload/${this.entityName}/${this.propertyName}`;
-    this.fileUploaderService.upload(formData, api).subscribe((res) => {
+    this.fileUploaderService.upload(formData, api).subscribe(res => {
       console.log('Image has been uploaded.');
       this.emitChange(id, file, privateUrl, publicUrl);
     });
   }
 
-  deleteFile(id: string) {}
+  deleteFile(id: string) {
+
+  }
 
   private extractExtensionFrom(filename): string {
     if (!filename) {
-      return null;
+      return null
     }
     const regex = /(?:\.([^.]+))?$/;
     return regex.exec(filename)[1];
   }
+
 
   private emitChange(id: string, file, privateUrl: string, publicUrl: string) {
     const fileDto = {

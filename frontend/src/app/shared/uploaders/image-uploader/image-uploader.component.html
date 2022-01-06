@@ -1,14 +1,8 @@
 <form [formGroup]="uploadForm">
   <div *ngFor="let image of imageList" class="img-thumbnail-wrapper preview">
-    <img class="thumbnail" src="{{ image.publicUrl }}" />
+    <img class="thumbnail" src="{{image.publicUrl}}">
     <div class="img-buttons">
-      <button
-        (click)="onRemove(image.id)"
-        mat-stroked-button
-        class="button"
-        color="default"
-        type="button"
-      >
+      <button (click)="onRemove(image.id)" mat-stroked-button class="button" color="default" type="button">
         Remove
       </button>
     </div>
@@ -17,13 +11,7 @@
   <div class="form-group">
     <button (click)="fileInput.click()" mat-flat-button color="default">
       Select image
-      <input
-        #fileInput
-        (change)="uploadFile($event)"
-        accept="image/*"
-        name="..."
-        type="file"
-      />
+      <input #fileInput (change)="uploadFile($event)" accept="image/*" name="..." type="file">
     </button>
   </div>
 </form>

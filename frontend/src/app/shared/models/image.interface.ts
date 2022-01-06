@@ -4,5 +4,5 @@ export interface ImageInterface {
   sizeInBytes: number;
   privateUrl: string;
   publicUrl: string;
-  new: boolean;
+  new: boolean
 }

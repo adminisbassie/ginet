@@ -38,7 +38,7 @@ import { FilterComponent } from './filter/filter.component';
     ImageUploaderComponent,
     FileUploaderComponent,
     DeletePopupComponent,
-    FilterComponent,
+    FilterComponent
   ],
   imports: [
     HeaderModule,
@@ -59,7 +59,7 @@ import { FilterComponent } from './filter/filter.component';
     MatInputModule,
     MatRadioModule,
     MatSlideToggleModule,
-    NgSelectModule,
+    NgSelectModule
   ],
   exports: [
     HeaderModule,
@@ -70,7 +70,8 @@ import { FilterComponent } from './filter/filter.component';
     ImageUploaderComponent,
     FileUploaderComponent,
     DeletePopupComponent,
-    FilterComponent,
-  ],
+    FilterComponent
+  ]
 })
-export class SharedModule {}
+export class SharedModule {
+}

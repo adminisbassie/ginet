@@ -5,11 +5,12 @@
 export class Reaction {
   id: string;
 
-  name: any;
+    name: any
+;
 
-  user: any; // Users;
+    user: any; // Users;
 
-  post: any; // Posts;
+    post: any; // Posts;
 
   createdBy: any; // Users;
   updatedBy: any; //Users;
@@ -19,3 +20,4 @@ export interface ReactionList {
   count: number;
   rows: Reaction[];
 }
+
